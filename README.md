@@ -5,17 +5,17 @@ Regexp2 is a feature-rich RegExp engine for Go.  It doesn't have constant time g
 The engine is ported from the .NET framework's System.Text.RegularExpressions.Regex engine.  That engine was open sourced in 2015 under the MIT license.  There are some fundamental differences between .NET strings and Go strings that required a bit of borrowing from the Go framework regex engine as well.  I cleaned up a couple of the dirtier bits during the port (regexcharclass.cs was terrible), but the parse tree, code emmitted, and therefore patterns matched should be identical.
 
 ## New Code Generation
-For extra performance use `regexp2` with [`regexp2cg`](https://github.com/dlclark/regexp2cg). It is a code generation utility for `regexp2` and you can likely improve your regexp runtime performance by 3-10x in hot code paths. As always you should benchmark your specifics to confirm the results. Give it a try!
+For extra performance use `regexp2` with [`regexp2cg`](https://github.com/Unity-Billal-mesloub/regexp2cg). It is a code generation utility for `regexp2` and you can likely improve your regexp runtime performance by 3-10x in hot code paths. As always you should benchmark your specifics to confirm the results. Give it a try!
 
 ## Installing
 This is a go-gettable library, so install is easy:
 
-    go get github.com/dlclark/regexp2/v2@latest
+    go get github.com/Unity-Billal-mesloub/regexp2/v2@latest
 
 ## Changes in v2
 Version 2 includes changes that may affect compatibility with existing v1 users:
 
-* The module path is now `github.com/dlclark/regexp2/v2`, so imports need to use the `/v2` suffix.
+* The module path is now `github.com/Unity-Billal-mesloub/regexp2/v2`, so imports need to use the `/v2` suffix.
 * The minimum supported Go version is now Go 1.25.
 * Changes to support https://github.com/dlclark/regexp2cg are merged in to support generated regex engines.
 * `Regexp.Split` is now available for splitting strings with regexp matches.
@@ -105,12 +105,12 @@ The default mode supports the following syntax:
 
 ## `regexp` compatibility adapter
 
-The `github.com/dlclark/regexp2/v2/compat` package provides an adapter for callers that want the same `Find*` and `Match*` method signatures as the standard library's `regexp.Regexp`, while still using the `regexp2` engine.
+The `github.com/Unity-Billal-mesloub/regexp2/v2/compat` package provides an adapter for callers that want the same `Find*` and `Match*` method signatures as the standard library's `regexp.Regexp`, while still using the `regexp2` engine.
 
 ```go
 import (
-	"github.com/dlclark/regexp2/v2"
-	"github.com/dlclark/regexp2/v2/compat"
+	"github.com/Unity-Billal-mesloub/regexp2/v2"
+	"github.com/Unity-Billal-mesloub/regexp2/v2/compat"
 )
 
 re := compat.MustCompile(`Your pattern`, regexp2.RE2)
@@ -215,7 +215,7 @@ The default behavior of `regexp2` is to match the .NET regexp engine, however th
 * add support for named ascii character classes (e.g. `[[:foo:]]`)
 * add support for python-style capture groups (e.g. `(?P<name>re)`)
 * add support for python-style named backreferences (e.g. `(?P=name)`)
-* change singleline behavior for `$` to only match end of string (like RE2) (see [#24](https://github.com/dlclark/regexp2/issues/24))
+* change singleline behavior for `$` to only match end of string (like RE2) (see [#24](https://github.com/Unity-Billal-mesloub/regexp2/issues))
 * change the character classes `\d` `\s` and `\w` to match the same characters as RE2. NOTE: if you also use the `ECMAScript` option then this will change the `\s` character class to match ECMAScript instead of RE2.  ECMAScript allows more whitespace characters in `\s` than RE2 (but still fewer than the the default behavior).
 * allow character escape sequences to have defaults. For example, by default `\_` isn't a known character escape and will fail to compile, but in RE2 mode it will match the literal character `_`
 * support RE2-style literal quoting with `\Q...\E`
@@ -266,7 +266,7 @@ deadline for the match. The performance impact is as follows.
     is reached. E.g., if you set a timeout of one minute the load will persist
     for approximately a minute even if the match finishes quickly.
 
-See [PR #58](https://github.com/dlclark/regexp2/pull/58) for more details and 
+See [PR #58](https://github.com/Unity-Billal-mesloub/regexp2/pull) for more details and 
 alternatives considered.
 
 ## Goroutine leak error
